@@ -21,5 +21,13 @@ namespace Infrastructure.Dapper
                 return SqlMapper.Query<T>(connection, sql, param);
             }
         }
+
+        public IEnumerable<T> Query<T>(string storedName, dynamic param, CommandType commandType)
+        {
+            using (IDbConnection connection = SqlConnectionHelper.OpenConnection())
+            {
+                return SqlMapper.Query<T>(connection, storedName, param, commandType: commandType);
+            }
+        }
     }
 }
