@@ -43,7 +43,5 @@ public class MyService : IMyService
     {
         return dapperRepository.Query<MyEntity>("spGetMyDatabyDate", new { dateFrom = day }, CommandType.StoredProcedure);
     }
-    
-    
 }
 ```
