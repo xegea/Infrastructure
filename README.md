@@ -24,14 +24,21 @@ container.Register(Component.For<IDapperRepository>().ImplementedBy<DapperReposi
 public class MyService : IMyService
 {
     private readonly IDapperRepository dapperRepository;
-    public DeliveryRepository(IDapperRepository dapperRepository)
+    public MyService(IDapperRepository dapperRepository)
     {
         this.dapperRepository = dapperRepository;
     }
 
-    public IEnumerable<Delivery> GetDataByDate(DateTime day)
+    public IEnumerable<MyEntity> TableGetData()
     {
-        return dapperRepository.Query<Delivery>("spGetMyDatabyDate", new {dateFrom = day}, CommandType.StoredProcedure);
+        return dapperRepository.Query<MyEntity>("Select Id, Name from MyTable").ToList();
     }
+    
+    public IEnumerable<MyEntity> StoredProcedureGetDataByDate(DateTime day)
+    {
+        return dapperRepository.Query<MyEntity>("spGetMyDatabyDate", new {dateFrom = day}, CommandType.StoredProcedure);
+    }
+    
+    
 }
 ```
