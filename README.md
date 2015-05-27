@@ -36,12 +36,12 @@ public class MyService : IMyService
     
     public IEnumerable<MyEntity> TableGetData(DateTime day)
     {
-        return dapperRepository.Query<MyEntity>("Select Id, Name from MyTable where dateFrom = day", new {dateFrom=day}).ToList();
+        return dapperRepository.Query<MyEntity>("Select Id, Name from MyTable where dateFrom = day", new { dateFrom = day } ).ToList();
     }
     
     public IEnumerable<MyEntity> StoredProcedureGetDataByDate(DateTime day)
     {
-        return dapperRepository.Query<MyEntity>("spGetMyDatabyDate", new {dateFrom = day}, CommandType.StoredProcedure);
+        return dapperRepository.Query<MyEntity>("spGetMyDatabyDate", new { dateFrom = day }, CommandType.StoredProcedure);
     }
     
     
