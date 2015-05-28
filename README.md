@@ -1,12 +1,15 @@
-Infrastructure.Dapper
+Infrastructure
 ===================
+
+Infrastructure.Dapper
+---------------------
+
+Wrapper for Dapper
 
 How to use it
 ----------------
 
-1) Install NuGet package
-
-2) Add Connection String called "Db" in Web.config file.
+1) Add Connection String called "Db" in Web.config file.
 
 ```
 <connectionStrings>
@@ -14,11 +17,11 @@ How to use it
     ...
   
 ```
-3) Set in the IoC Container the IDapperRepository implementation
+2) Set in the IoC Container the IDapperRepository implementation
 ```
 container.Register(Component.For<IDapperRepository>().ImplementedBy<DapperRepository>().LifestyleTransient());
 ```
-4) Use the DapperRepository as follows
+3) Use the DapperRepository as follows
 
 ```
 public class MyService : IMyService
@@ -36,7 +39,7 @@ public class MyService : IMyService
     
     public IEnumerable<MyEntity> TableGetData(DateTime day)
     {
-        return dapperRepository.Query<MyEntity>("Select Id, Name from MyTable where dateFrom = day", new { dateFrom = day } ).ToList();
+        return dapperRepository.Query<MyEntity>("Select Id, Name from MyTable where dateFrom = @day", new { @day = day } ).ToList();
     }
     
     public IEnumerable<MyEntity> StoredProcedureGetDataByDate(DateTime day)
