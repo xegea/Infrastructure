@@ -1,13 +1,69 @@
 Infrastructure
 ===================
 
+Infrastructure IoC
+------------------
+
+Wrapper for Castle Windsor IoC
+
+How to use it in Web Api ASP.NET MVC 4 
+---------------------------------------------------
+For ASP.NET MVC Framework 4, use DependencyResolver with IDependencyScope.
+More info:
+Mike Hadlow, "The MVC 3.0 IDependencyResolver interface is broken. Don’t use it with Windsor," 2011,
+http://mikehadlow.blogspot.com/2011/02/mvc-30-idependencyresolver-interface-is.html
+
+1) Create a class WebApiControllerInstaller.cs
+```
+public class WebApiControllerInstaller : IWindsorInstaller
+{
+    public void Install(IWindsorContainer container, IConfigurationStore store)
+    {
+        container.Register(Component.For<IMyInterface>().ImplementedBy<IMyImplementation>().LifestyleScoped());
+        ....
+        
+        container.Register(Classes.FromThisAssembly().BasedOn<IHttpController>().LifestyleScoped());
+
+        WindsorExtensions.CheckForPotentiallyMisconfiguredComponents(container);
+    }
+}
+```
+2) In Global.asax Application_Start()
+```
+var container = new WindsorContainer().Install(new WebApiControllerInstaller());
+var httpDependencyResolver = new WindsorDependencyResolver(container);
+GlobalConfiguration.Configuration.DependencyResolver = httpDependencyResolver;
+```
+How to use it in Web Api ASP.NET MVC 5
+---------------------------------------------------
+1) Create a class WebApiControllerInstaller.cs
+```
+public class WebApiControllerInstaller : IWindsorInstaller
+{
+    public void Install(IWindsorContainer container, IConfigurationStore store)
+    {
+        container.Register(Component.For<IMyInterface>().ImplementedBy<IMyImplementation>().LifestyleTransient());
+        ....
+        
+        container.Register(Classes.FromThisAssembly().BasedOn<IHttpController>().LifestyleTransient());
+
+        WindsorExtensions.CheckForPotentiallyMisconfiguredComponents(container);
+    }
+}
+```
+2) In Startup.cs 
+```
+var container = new WindsorContainer().Install(new WebApiControllersInstaller());
+config.Services.Replace(typeof(IHttpControllerActivator), new WindsorCompositionRoot(container));
+ContainerManager.Container = container;
+```
 Infrastructure.Dapper
 ---------------------
 
 Wrapper for Dapper
 
 How to use it
-----------------
+-------------
 
 1) Add Connection String called "Db" in Web.config file.
 
