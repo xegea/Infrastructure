@@ -1,7 +1,7 @@
 Infrastructure
 ===================
 
-Infrastructure IoC
+Infrastructure.IoC
 ------------------
 
 Wrapper for Castle Windsor IoC
@@ -9,9 +9,13 @@ Wrapper for Castle Windsor IoC
 How to use it in Web Api ASP.NET MVC 4 
 ---------------------------------------------------
 For ASP.NET MVC Framework 4, use DependencyResolver with IDependencyScope.
-More info:
-Mike Hadlow, "The MVC 3.0 IDependencyResolver interface is broken. Don’t use it with Windsor," 2011,
-http://mikehadlow.blogspot.com/2011/02/mvc-30-idependencyresolver-interface-is.html
+
+> **More info:**
+
+> - Mike Hadlow, "The MVC 3.0 IDependencyResolver interface is broken. Don’t use it with Windsor," 2011.
+http://mikehadlow.blogspot.com/2011/02/mvc-30-idependencyresolver-interface-is.html 
+
+
 
 1) Create a class WebApiControllerInstaller.cs
 ```
@@ -57,6 +61,10 @@ var container = new WindsorContainer().Install(new WebApiControllersInstaller())
 config.Services.Replace(typeof(IHttpControllerActivator), new WindsorCompositionRoot(container));
 ContainerManager.Container = container;
 ```
+
+----------
+
+
 Infrastructure.Dapper
 ---------------------
 
