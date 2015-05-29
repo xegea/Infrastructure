@@ -25,8 +25,6 @@ namespace Infrastructure.Ioc
             return controller;
         }
 
-
-        //Hello
         private class Release : IDisposable
         {
             private readonly Action release;
