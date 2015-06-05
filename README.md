@@ -6,9 +6,9 @@ Infrastructure.IoC
 
 Wrapper for Castle Windsor IoC
 
-How to use it in Web Api ASP.NET MVC 4 
----------------------------------------------------
-For ASP.NET MVC Framework 4, use DependencyResolver with IDependencyScope.
+Dependency Resolver version
+---------------------------
+Use DependencyResolver with IDependencyScope.
 
 > **More info:**
 
@@ -38,8 +38,8 @@ var container = new WindsorContainer().Install(new WebApiControllerInstaller());
 var httpDependencyResolver = new WindsorDependencyResolver(container);
 GlobalConfiguration.Configuration.DependencyResolver = httpDependencyResolver;
 ```
-How to use it in Web Api ASP.NET MVC 5
----------------------------------------------------
+Composition Root version
+------------------------
 1) Create a class WebApiControllerInstaller.cs
 ```
 public class WebApiControllerInstaller : IWindsorInstaller
