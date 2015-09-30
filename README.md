@@ -62,6 +62,8 @@ config.Services.Replace(typeof(IHttpControllerActivator), new WindsorComposition
 ContainerManager.Container = container;
 ```
 
+In case of ASP.NET MVC check this link: https://github.com/castleproject/Windsor/blob/master/docs/mvc-tutorial-intro.md
+
 ----------
 
 
